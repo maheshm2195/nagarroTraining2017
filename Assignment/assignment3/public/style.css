@@ -1,0 +1,42 @@
+.breathVertical {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.breathHorizontal {
+    margin-left:5px;
+    margin-right:5px;
+}
+
+div.todoStatusACTIVE {
+    color : blue;
+}
+
+div.todoStatusCOMPLETE{
+    color : green;
+    text-decoration : line-through;
+}
+
+div.todoStatusDELETED {
+    color : red;
+    text-decoration : line-through;
+}
+
+.line{
+    width: 112px;
+    height: 47px;
+    border-bottom: 1px solid black;
+    position: absolute;
+}
+
+.transparentButton {
+
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color: red;
+
+}
