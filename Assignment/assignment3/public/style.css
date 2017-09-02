@@ -8,16 +8,16 @@
     margin-right:5px;
 }
 
-div.todoStatusACTIVE {
-    color : blue;
+.todoStatusACTIVE {
+    color : black;
 }
 
-div.todoStatusCOMPLETE{
+.todoStatusCOMPLETE{
     color : green;
     text-decoration : line-through;
 }
 
-div.todoStatusDELETED {
+.todoStatusDELETED {
     color : red;
     text-decoration : line-through;
 }
@@ -38,5 +38,29 @@ div.todoStatusDELETED {
     overflow: hidden;
     outline:none;
     color: red;
+}
 
+checkbox{
+    color: blue;
+    background-color: blue;
+}
+
+table {
+    border: 0px;
+    margin: 0cm 0cm 0cm 2cm;
+    display: table;
+}
+
+.breathLeft {
+    margin: 0cm 0cm 2cm 1cm;
+}
+
+.hideClass{
+    color: blue;
+    margin: 0cm 0cm 2cm 9cm;
+    text-decoration: underline;
+}
+
+#new_todo_input{
+    margin: 0cm 0cm 0cm 2cm;
 }

@@ -7,21 +7,24 @@
     <link rel="stylesheet" href="./style.css"/>
 </head>
 
-<h1 align="center" style="background-color:#f9f0b1;">My todo list</h1>
+<h1 align="center" style="background-color:#f9f0b1;">My Todos</h1>
 
-<!--<button value="Get todos" onclick="getTodosAJAX()">Refresh todos</button>-->
 
 <br>
-Active todos
-<div id="ACTIVEdiv"></div>
+<label class="breathLeft" style="font-weight: bold; color: black">Active todos
+</label>
+<table id="ACTIVEtable"></table>
 
 <!--<div class="line"></div>-->
 
 <br>
 <br>
 
-<input type="text" id="new_todo_input" placeholder="Enter new todo"/>
-<input type="button" value="Add todo" onclick="addTodoAJAX()"/>
+<label class="breathLeft" style="color: dimgrey; font-size:larger">Add Todo
+</label>
+<br>
+<input type="text" id="new_todo_input" placeholder="Todo Title goes here"/>
+<input type="button" value="Add" onclick="addTodoAJAX()"/>
 
 <br>
 
@@ -30,14 +33,22 @@ Active todos
 <br>
 
 <br>
-Completed todos
-<div id="COMPLETEdiv"></div>
+<label class="breathLeft" style="font-weight: bold; color: black">Completed todos
+</label>
+<br>
+<label id="hideCompId" class="hideClass" onclick="hideCompTodos()">Hide completed todos</label>
+
+<table id="COMPLETEtable" style="display:table"></table>
 
 <!--<div class="line"></div>-->
 
 <br>
-Deleted todos
-<div id="DELETEDdiv"></div>
+<label class="breathLeft" style="font-weight: bold; color: black">Deleted todos
+</label>
+<br>
+<label id="hideDelId" class="hideClass" onclick="hideDelTodos()">Hide deleted todos</label>
+
+<table id="DELETEDtable" style="display:table"></table>
 
 <script src="script.js" type="text/javascript"></script>
 

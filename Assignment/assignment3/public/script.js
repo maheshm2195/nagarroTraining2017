@@ -1,4 +1,3 @@
-// const TODO_LIST_ID = "todos_list_div";
 const NEW_TODO_INPUT = "new_todo_input";
 const RESPONSE_DONE = 4;
 const STATUS_OK = 200;
@@ -12,8 +11,6 @@ function getTodosAJAX() {
 
         if(xhr.readyState==RESPONSE_DONE){
             if(xhr.status == STATUS_OK){
-                //console.log(xhr.responseText);
-                // addTodoElements(TODO_LIST_ID,xhr.responseText);
                 addTodoElements(xhr.responseText);
             }
         }
@@ -23,80 +20,60 @@ function getTodosAJAX() {
 
 function addTodoElements(todos_data_json) {
     var todos = JSON.parse(todos_data_json);
-    var ACTIVEparent = document.getElementById("ACTIVEdiv");
+    var ACTIVEparent = document.getElementById("ACTIVEtable");
     ACTIVEparent.innerHTML="";
-    var COMPLETEparent = document.getElementById("COMPLETEdiv");
+    var COMPLETEparent = document.getElementById("COMPLETEtable");
     COMPLETEparent.innerHTML="";
-    var DELETEDparent = document.getElementById("DELETEDdiv");
+    var DELETEDparent = document.getElementById("DELETEDtable");
     DELETEDparent.innerHTML="";
 
     Object.keys(todos).forEach(function (key) {
         var todo_element = createTodoElement(key,todos[key]);
         if(todos[key].status=="ACTIVE")
         {
-            ACTIVEparent.appendChild(todo_element);
+            var row = ACTIVEparent.insertRow(0);
+            row.innerHTML = todo_element;
         }
         else if(todos[key].status=="COMPLETE")
         {
-            COMPLETEparent.appendChild(todo_element);
+            var row = COMPLETEparent.insertRow(0);
+            row.innerHTML = todo_element;
         }
         else if(todos[key].status=="DELETED")
         {
-            DELETEDparent.appendChild(todo_element);
+            var row = DELETEDparent.insertRow(0);
+            row.innerHTML = todo_element;
         }
     });
 };
 
 function createTodoElement(id,todo_object) {
-    var todo_element = document.createElement("div");
-    todo_element.innerText = todo_object.title;
-    todo_element.setAttribute("data-id",id);
-    todo_element.setAttribute(
-        "class", "todoStatus"+ todo_object.status + " " + "breathVertical" );
+    var classText = "todoStatus"+ todo_object.status + " " + "breathVertical";
+    var mainText = "<td style='width:200px; display: inline-block; word-wrap: break-word; white-space: -moz-pre-wrap !important;' " +
+        "data-id='id' class="+classText+" >"+todo_object.title+"</td>";
 
     if (todo_object.status == "ACTIVE"){
 
-        var checkbox = document.createElement('input');
-        checkbox.type = "checkbox";
-        checkbox.name = "checkbox";
-        checkbox.value = "Mark as Complete";
-        checkbox.setAttribute("onclick", "completeTodoAJAX("+id+")");
-        checkbox.setAttribute("class", "breathHorizontal");
-        var temp = todo_element.innerHTML;
-        todo_element.innerHTML = "";
-        todo_element.appendChild(checkbox);
-        todo_element.innerHTML += temp;
+        var checkbox =
+            "<td><input type='checkbox' name='checkbox' value = 'Mark as Complete' onclick='completeTodoAJAX("+id+")' class='breathHorizontal'></td>";
 
-        var complete_button = document.createElement("button");
-        complete_button.innerText = "X";
-        complete_button.background = "#FFFFFF";
-        complete_button.setAttribute("onclick", "deleteTodoAJAX("+id+")");
-        complete_button.setAttribute("class", "breathHorizontal transparentButton");
-        todo_element.appendChild(complete_button);
+        var button = "<td><button onclick='deleteTodoAJAX("+id+")' class='breathHorizontal transparentButton' >X</button></td> ";
+        return (checkbox+" "+mainText+" "+button);
     };
+
 
     if (todo_object.status == "COMPLETE"){
-        var checkbox = document.createElement('input');
-        checkbox.type = "checkbox";
-        checkbox.name = "checkbox";
-        checkbox.value = "Mark as Complete";
-        checkbox.setAttribute("onclick", "activeTodoAJAX("+id+")");
-        checkbox.setAttribute("class", "breathHorizontal");
-        checkbox.setAttribute("checked", "true");
-        var temp = todo_element.innerHTML;
-        todo_element.innerHTML = "";
-        todo_element.appendChild(checkbox);
-        todo_element.innerHTML += temp;
 
+        var checkbox =
+            "<td><input checked='true' type=\"checkbox\" name=\"checkbox\" value = \"Mark as Complete\" onclick='activeTodoAJAX("+id+")' class='breathHorizontal'></td>";
 
-        var complete_button = document.createElement("button");
-        complete_button.innerText = "X";
-        complete_button.background = "#FFFFFF";
-        complete_button.setAttribute("onclick", "deleteTodoAJAX("+id+")");
-        complete_button.setAttribute("class", "breathHorizontal transparentButton");
-        todo_element.appendChild(complete_button);
+        var button = "<td><button onclick='deleteTodoAJAX("+id+")' class='breathHorizontal transparentButton' >X</button></td> ";
+
+        return (checkbox+" "+mainText+" "+button);
+
     };
-    return todo_element;
+    return (mainText);
+
 };
 
 function addTodoAJAX() {
@@ -179,3 +156,27 @@ function deleteTodoAJAX(id){
     };
     xhr.send(data);
 };
+
+function hideDelTodos(){
+    var delTable = document.getElementById("DELETEDtable");
+    delTable.style.display = (delTable.style.display == "table") ? "none" : "table";
+    var textlabel = document.getElementById("hideDelId");
+    if(delTable.style.display == "table"){
+        textlabel.innerText = "Hide deleted todos";
+    }
+    else{
+        textlabel.innerText = "Unhide deleted todos";
+    }
+}
+
+function hideCompTodos(){
+    var compTable = document.getElementById("COMPLETEtable");
+    compTable.style.display = (compTable.style.display == "table") ? "none" : "table";
+    var textlabel = document.getElementById("hideCompId");
+    if(compTable.style.display == "table"){
+        textlabel.innerText = "Hide completed todos";
+    }
+    else{
+        textlabel.innerText = "Unhide completed todos";
+    }
+}
