@@ -54,6 +54,27 @@ function createTodoElement(id,todo_object) {
     todo_element.setAttribute(
         "class", "todoStatus"+ todo_object.status + " " + "breathVertical" );
 
+    if (todo_object.status == "ACTIVE"){
+
+        var checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.name = "checkbox";
+        checkbox.value = "Mark as Complete";
+        checkbox.setAttribute("onclick", "completeTodoAJAX("+id+")");
+        checkbox.setAttribute("class", "breathHorizontal");
+        var temp = todo_element.innerHTML;
+        todo_element.innerHTML = "";
+        todo_element.appendChild(checkbox);
+        todo_element.innerHTML += temp;
+
+        var complete_button = document.createElement("button");
+        complete_button.innerText = "X";
+        complete_button.background = "#FFFFFF";
+        complete_button.setAttribute("onclick", "deleteTodoAJAX("+id+")");
+        complete_button.setAttribute("class", "breathHorizontal transparentButton");
+        todo_element.appendChild(complete_button);
+    };
+
     return todo_element;
 };
 
@@ -73,6 +94,64 @@ function addTodoAJAX() {
                 addTodoElements(xhr.responseText);
             }
             else{
+                console.log(xhr.responseText);
+            }
+        }
+    };
+    xhr.send(data);
+};
+
+
+function activeTodoAJAX(id){
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", "/api/todos/"+id, true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    data = "todo_status=ACTIVE";
+
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == RESPONSE_DONE) {
+            if (xhr.status == STATUS_OK) {
+                addTodoElements(xhr.responseText);
+            }
+            else {
+                console.log(xhr.responseText);
+            }
+        }
+    };
+    xhr.send(data);
+};
+
+function completeTodoAJAX(id){
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", "/api/todos/"+id, true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    data = "todo_status=COMPLETE";
+
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == RESPONSE_DONE) {
+            if (xhr.status == STATUS_OK) {
+                addTodoElements(xhr.responseText);
+            }
+            else {
+                console.log(xhr.responseText);
+            }
+        }
+    };
+    xhr.send(data);
+};
+
+function deleteTodoAJAX(id){
+    var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", "/api/todos/"+id, true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    data = "todo_status=DELETED";
+
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == RESPONSE_DONE) {
+            if (xhr.status == STATUS_OK) {
+                addTodoElements(xhr.responseText);
+            }
+            else {
                 console.log(xhr.responseText);
             }
         }
