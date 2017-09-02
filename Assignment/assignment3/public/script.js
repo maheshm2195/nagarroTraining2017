@@ -75,6 +75,27 @@ function createTodoElement(id,todo_object) {
         todo_element.appendChild(complete_button);
     };
 
+    if (todo_object.status == "COMPLETE"){
+        var checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.name = "checkbox";
+        checkbox.value = "Mark as Complete";
+        checkbox.setAttribute("onclick", "activeTodoAJAX("+id+")");
+        checkbox.setAttribute("class", "breathHorizontal");
+        checkbox.setAttribute("checked", "true");
+        var temp = todo_element.innerHTML;
+        todo_element.innerHTML = "";
+        todo_element.appendChild(checkbox);
+        todo_element.innerHTML += temp;
+
+
+        var complete_button = document.createElement("button");
+        complete_button.innerText = "X";
+        complete_button.background = "#FFFFFF";
+        complete_button.setAttribute("onclick", "deleteTodoAJAX("+id+")");
+        complete_button.setAttribute("class", "breathHorizontal transparentButton");
+        todo_element.appendChild(complete_button);
+    };
     return todo_element;
 };
 
