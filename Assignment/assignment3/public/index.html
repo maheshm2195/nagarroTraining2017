@@ -9,11 +9,13 @@
     <link href = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel = "stylesheet">
 </head>
 
+
 <body>
 <h1 align="center" style="background-color:#f9f0b1;" >My Todos</h1>
 
 
 <br>
+
 <label class="breathLeft" style="font-weight: bold; color: black">Active todos
 </label>
 <table id="ACTIVEtable"></table>
@@ -25,7 +27,9 @@
 
 <label class="breathLeft" style="color: dimgrey; font-size:larger">Add Todo
 </label>
+
 <br>
+
 <input type="text" id="new_todo_input" placeholder="Todo Title goes here"/>
 <input class ="btn btn-info" type="button" value="Add" onclick="addTodoAJAX()"/>
 
@@ -34,8 +38,8 @@
 <div class="line"></div>
 
 <br>
-
 <br>
+
 <label class="breathLeft" style="font-weight: bold; color: black">Completed todos
 </label>
 <br>
@@ -48,11 +52,12 @@
 <br>
 <label class="breathLeft" style="font-weight: bold; color: black">Deleted todos
 </label>
+
 <br>
+
 <label id="hideDelId" class="hideClass" onclick="hideDelTodos()">Hide deleted todos</label>
 
 <table id="DELETEDtable" style="display:table"></table>
-
 
 <script src="script.js" type="text/javascript"></script>
 <script src = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>

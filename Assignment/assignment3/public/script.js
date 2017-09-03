@@ -4,6 +4,7 @@ const STATUS_OK = 200;
 
 window.onunload = getTodosAJAX();
 
+//Primary function to load all TODOs in the browser
 function getTodosAJAX() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET","/api/todos",true);
@@ -18,6 +19,8 @@ function getTodosAJAX() {
     xhr.send(data=null);
 };
 
+//Secondary function called by getTodosAJAX to add elements to different section of the app based on their
+// status type. It adds the ROWs returned to the corresponding TABLE in index.html
 function addTodoElements(todos_data_json) {
     var todos = JSON.parse(todos_data_json);
     var ACTIVEparent = document.getElementById("ACTIVEtable");
@@ -48,6 +51,10 @@ function addTodoElements(todos_data_json) {
     });
 };
 
+
+// Main function to create different types of elements based on their status type
+// It created ROW elements of the different tables and return it
+
 function createTodoElement(id,todo_object) {
     var classText = "todoStatus"+ todo_object.status + " " + "breathVertical";
     var mainText = "<td style='width:200px; display: inline-block; word-wrap: break-word; white-space: -moz-pre-wrap !important; margin-top:10px; ' " +
@@ -77,6 +84,7 @@ function createTodoElement(id,todo_object) {
 
 };
 
+//Function to add new TODOs-ACTIVE to the seed.js
 function addTodoAJAX() {
     var value = document.getElementById(NEW_TODO_INPUT).value;
     document.getElementById(NEW_TODO_INPUT).value = "";
@@ -102,6 +110,8 @@ function addTodoAJAX() {
 };
 
 
+//Function to make a TODO
+// with given id into an ACTIVE todo
 function activeTodoAJAX(id){
     var xhr = new XMLHttpRequest();
     xhr.open("PUT", "/api/todos/"+id, true);
@@ -121,6 +131,9 @@ function activeTodoAJAX(id){
     xhr.send(data);
 };
 
+
+//Function to make a TODO
+// with given id into an COMPLETE todo
 function completeTodoAJAX(id){
     var xhr = new XMLHttpRequest();
     xhr.open("PUT", "/api/todos/"+id, true);
@@ -140,6 +153,9 @@ function completeTodoAJAX(id){
     xhr.send(data);
 };
 
+
+//Function to make a TODO
+// with given id into an DELETED todo
 function deleteTodoAJAX(id){
     var xhr = new XMLHttpRequest();
     xhr.open("DELETE", "/api/todos/"+id, true);
@@ -159,6 +175,8 @@ function deleteTodoAJAX(id){
     xhr.send(data);
 };
 
+
+// Function to toggle the deleted section
 function hideDelTodos(){
     var delTable = document.getElementById("DELETEDtable");
     delTable.style.display = (delTable.style.display == "table") ? "none" : "table";
@@ -171,6 +189,7 @@ function hideDelTodos(){
     }
 }
 
+// Function to toggle the completed section
 function hideCompTodos(){
     var compTable = document.getElementById("COMPLETEtable");
     compTable.style.display = (compTable.style.display == "table") ? "none" : "table";

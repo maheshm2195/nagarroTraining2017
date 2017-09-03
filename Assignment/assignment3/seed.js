@@ -16,7 +16,7 @@ var todos = {
 
 };
 
-var next_todo_id = 4;
+var next_todo_id = 9;
 
 module.exports = {
     StatusENUMS: StatusENUMS,
