@@ -29,6 +29,7 @@ function addTodoElements(todos_data_json) {
 
     Object.keys(todos).forEach(function (key) {
         var todo_element = createTodoElement(key,todos[key]);
+
         if(todos[key].status=="ACTIVE")
         {
             var row = ACTIVEparent.insertRow(0);
@@ -49,13 +50,13 @@ function addTodoElements(todos_data_json) {
 
 function createTodoElement(id,todo_object) {
     var classText = "todoStatus"+ todo_object.status + " " + "breathVertical";
-    var mainText = "<td style='width:200px; display: inline-block; word-wrap: break-word; white-space: -moz-pre-wrap !important;' " +
+    var mainText = "<td style='width:200px; display: inline-block; word-wrap: break-word; white-space: -moz-pre-wrap !important; margin-top:10px; ' " +
         "data-id='id' class="+classText+" >"+todo_object.title+"</td>";
 
     if (todo_object.status == "ACTIVE"){
 
         var checkbox =
-            "<td><input type='checkbox' name='checkbox' value = 'Mark as Complete' onclick='completeTodoAJAX("+id+")' class='breathHorizontal'></td>";
+            "<td><div class='checkbox checkbox-primary'><input type='checkbox' name='checkbox' value = 'Mark as Complete' onclick='completeTodoAJAX("+id+")' class='breathHorizontal' id='checkbox"+id+"'> <label for='checkbox"+id+"'></label></div></td>";
 
         var button = "<td><button onclick='deleteTodoAJAX("+id+")' class='breathHorizontal transparentButton' >X</button></td> ";
         return (checkbox+" "+mainText+" "+button);
@@ -65,7 +66,7 @@ function createTodoElement(id,todo_object) {
     if (todo_object.status == "COMPLETE"){
 
         var checkbox =
-            "<td><input checked='true' type=\"checkbox\" name=\"checkbox\" value = \"Mark as Complete\" onclick='activeTodoAJAX("+id+")' class='breathHorizontal'></td>";
+            "<td><div class='checkbox checkbox-primary'><input type='checkbox' name='checkbox' value = 'Mark as Complete' onclick='activeTodoAJAX("+id+")' class='breathHorizontal' id='checkbox"+id+"' checked=''><label for='checkbox"+id+"'></label></div></td>";
 
         var button = "<td><button onclick='deleteTodoAJAX("+id+")' class='breathHorizontal transparentButton' >X</button></td> ";
 
@@ -78,6 +79,7 @@ function createTodoElement(id,todo_object) {
 
 function addTodoAJAX() {
     var value = document.getElementById(NEW_TODO_INPUT).value;
+    document.getElementById(NEW_TODO_INPUT).value = "";
     var xhr = new XMLHttpRequest();
     xhr.open("POST","/api/todos",true);
     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
